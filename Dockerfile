@@ -11,4 +11,4 @@ RUN apt-get update && apt-get install -y tini
 ENTRYPOINT ["/usr/bin/tini", "--"]
 
 # Run the server
-CMD ["python", "-m", "mcp_server_youtube"]
+CMD ["mcp-server-youtube"]

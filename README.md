@@ -46,7 +46,8 @@ npx @modelcontextprotocol/inspector uv run mcp-server-youtube
 Build the image:
 
 ```bash
-docker build -t mcp-server-youtube .
+docker build -t mcp-server-youtube:0.2.2 .
+docker tag mcp-server-youtube:0.2.2 mcp-server-youtube:latest
 ```
 
 Add to claude_desktop_config.json:
