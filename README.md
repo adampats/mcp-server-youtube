@@ -26,6 +26,14 @@ It leverages the [yt-dlp](https://github.com/yt-dlp/yt-dlp) library for the heav
   - Arguments:
     - `url` (string, required): YouTube video URL to fetch
 
+### JS Runtime Issue
+
+As of Nov 2025, yt-dlp now requires deno js runtime for the best video detection support. See [this github issue](https://github.com/yt-dlp/yt-dlp/issues/15012) for more details. [Install deno](https://docs.deno.com/runtime/getting_started/installation/) like this:
+
+```bash
+curl -fsSL https://deno.land/install.sh | sh
+```
+
 ### Run it
 
 ```bash
@@ -41,7 +49,25 @@ Using [Inspector](https://github.com/modelcontextprotocol/inspector) for testing
 npx @modelcontextprotocol/inspector uv run mcp-server-youtube
 ```
 
-### Server config file (using Docker)
+### Runtime + config file
+
+**Native (Python/uv)** — add to `claude_desktop_config.json`:
+
+```json
+{
+  "mcpServers": {
+    "youtube": {
+      "command": "uv",
+      "args": ["run", "mcp-server-youtube"],
+      "cwd": "/path/to/mcp-server-youtube"
+    }
+  }
+}
+```
+
+Replace `/path/to/mcp-server-youtube` with the actual path to this repo (where `pyproject.toml` lives). Ensure `uv sync` has been run in that directory at least once.
+
+**Docker**
 
 Build the image:
 
@@ -50,15 +76,14 @@ docker build -t mcp-server-youtube:0.2.2 .
 docker tag mcp-server-youtube:0.2.2 mcp-server-youtube:latest
 ```
 
-Add to claude_desktop_config.json:
+Add to `claude_desktop_config.json`:
 
 ```json
 {
   "mcpServers": {
     "youtube": {
       "command": "docker",
-      "args": ["run", "--rm", "-i", "mcp-server-youtube"],
-      "cwd": "/path/to/code/repos/mcp-server-youtube"
+      "args": ["run", "--rm", "-i", "mcp-server-youtube"]
     }
   }
 }
