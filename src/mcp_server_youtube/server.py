@@ -95,7 +95,11 @@ async def get_youtube_transcript_and_metadata(
             subtitles = info.get('subtitles', {})
             automatic_captions = info.get('automatic_captions', {})
             transcript_text = ""
-            preferred_languages = ['en', 'en-US', 'en-GB']
+            preferred_languages = ['en', 'en-US', 'en-GB', 'en-orig']
+
+            # Debug: see what languages are available
+            print(f"Subtitles keys: {list(subtitles.keys())}", file=sys.stderr)
+            print(f"Auto caption keys: {list(automatic_captions.keys())}", file=sys.stderr)
             
             # First try manual subtitles
             for lang in preferred_languages:

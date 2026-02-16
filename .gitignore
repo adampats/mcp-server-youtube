@@ -38,3 +38,4 @@ env/
 .env
 .coverage
 htmlcov/
+*.vtt
